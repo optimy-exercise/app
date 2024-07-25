@@ -40,6 +40,8 @@ jobs:
       - name: Deploy Docker container
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/aws-personal-key.pem ec2-user@${{ secrets.SERVER_URL }} << 'EOF'
+          sudo usermod -aG docker ec2-user
+          newgrp docker
           docker pull bitleaf/php-app:latest
           docker stop php-app || true
           docker rm php-app || true

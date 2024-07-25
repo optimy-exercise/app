@@ -32,6 +32,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Deploy Docker container
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/aws-personal-key.pem ec2-user@${{ secrets.SERVER_URL }} << 'EOF'

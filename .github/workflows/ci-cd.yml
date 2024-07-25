@@ -79,4 +79,4 @@ jobs:
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Run tests
-        run: python test_script.py ${{ secrets.SERVER_URL }}
+        run: python testing.py ${{ secrets.SERVER_URL }}

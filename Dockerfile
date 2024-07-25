@@ -1,10 +1,16 @@
-FROM php:7.4-cli
+FROM php:8.0-apache
 
-# Copy the PHP script into the container
-COPY router.php /var/www/html/
+# Install necessary extensions
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 
-# Set working directory
+# Copy application files
+COPY . /var/www/html/
+
+# Set the working directory
 WORKDIR /var/www/html
 
-# Start PHP built-in server
-CMD ["php", "-S", "0.0.0.0:80", "-t", "/var/www/html"]
+# Set the default index file
+RUN echo "DirectoryIndex router.php" > /etc/apache2/conf-available/router.conf && a2enconf router
+
+# Expose the port Apache is listening on
+EXPOSE 80

@@ -12,12 +12,11 @@ def test_app(url):
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
-    # Setup Chrome driver
+    # Setup Chrome driver using webdriver-manager
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     try:
-        # Open the URL
         driver.get(url)
         time.sleep(2)  # Wait for the page to load
 
@@ -33,13 +32,13 @@ def test_app(url):
         rows = table.find_elements(By.XPATH, ".//tr")
         assert len(rows) > 1  # Ensure there is at least one data row
 
-        # Optional: Check for specific content in the table
+        # Check for specific content in the table
         first_row_data = rows[1].find_elements(By.XPATH, ".//td")
-        assert len(first_row_data) == 3  # Ensure the row has 3 columns
-        assert first_row_data[0].text.isdigit()  # Check if the first column (ID) is a number
-        assert first_row_data[1].text == "SampleName1"  # Check if the name matches
-        assert first_row_data[2].text == "SampleValue1"  # Check if the value matches
-
+        assert len(first_row_data) == 3  
+        assert first_row_data[0].text.isdigit()  
+        assert first_row_data[1].text == "SampleName1" 
+        assert first_row_data[2].text == "SampleValue1" 
+    
         print("Test passed: Application is up and running, and the database content is correct.")
     except Exception as e:
         print(f"Test failed: {e}")

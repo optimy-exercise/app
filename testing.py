@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
 import sys
 import time
 
@@ -12,7 +13,7 @@ def test_app(url):
     chrome_options.add_argument("--disable-dev-shm-usage")
 
     # Setup Chrome driver
-    service = Service('/usr/local/bin/chromedriver')
+    service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     try:

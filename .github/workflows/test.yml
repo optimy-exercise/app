@@ -20,8 +20,8 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install Selenium
-        run: pip install selenium
+      - name: Install dependencies
+        run: pip install -r test_requirements.txt
 
       - name: Download and set up Chromedriver
         run: |

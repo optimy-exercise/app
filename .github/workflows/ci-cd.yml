@@ -45,7 +45,7 @@ jobs:
           docker pull bitleaf/php-app:latest
           docker stop php-app || true
           docker rm php-app || true
-          docker run -d --name php-app -p 80:80 bitleaf/php-app:latest
+          docker run -d --name php-app --link mysql-container:mysql-container -p 80:80 bitleaf/php-app:latest
           EOF
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
